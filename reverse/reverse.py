@@ -39,4 +39,5 @@ class LinkedList:
         return False
 
     def reverse_list(self, node, prev):
+        #to reverse the current order
         pass
