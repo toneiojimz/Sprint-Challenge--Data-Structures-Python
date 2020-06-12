@@ -13,10 +13,44 @@ f.close()
 duplicates = []  # Return the list of duplicates in this data structure
 
 # Replace the nested for loops below with your improvements
-for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+# for name_1 in names_1:
+#     for name_2 in names_2:
+#         if name_1 == name_2:
+#             duplicates.append(name_1)
+
+def faster_sorting(arr):
+    if len(arr) <= 1:
+        return arr
+    change = arr[0]
+    small = []
+    big = []
+
+    for i in range(1, len(arr)):
+        if arr[i] <= change:
+            small.append(arr[i])
+        else:
+            big.append(arr[i])
+    return faster_sorting(small) + [change] + faster_sorting(big)
+
+names_2 = faster_sorting(names_2)
+
+def search(arr, target):
+    lower = 0
+    higher = len(arr)-1
+
+    while lower < higher:
+        middle = (lower + higher)//2
+        if arr[middle] == target:
+            return target
+        elif target < arr[middle]:
+            higher = middle
+        else:
+            lower = middle+1
+
+for name in names_1:
+    if name == search(names_2, name):
+        duplicates.append(name)
+
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
