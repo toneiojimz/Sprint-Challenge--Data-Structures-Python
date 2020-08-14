@@ -1,5 +1,6 @@
 import time
 
+
 start_time = time.time()
 
 f = open('names_1.txt', 'r')
@@ -20,7 +21,8 @@ for name_1 in names_1:
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
-print (f"runtime: {end_time - start_time} seconds")
+print (f"runtime: {end_time - start_time} seconds")  # got 5.4 seconds with original code 
+
 
 # ---------- Stretch Goal -----------
 # Python has built-in tools that allow for a very efficient approach to this problem
