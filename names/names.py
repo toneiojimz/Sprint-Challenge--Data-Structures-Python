@@ -1,5 +1,6 @@
 import time
 
+
 start_time = time.time()
 
 f = open('names_1.txt', 'r')
@@ -13,14 +14,48 @@ f.close()
 duplicates = []  # Return the list of duplicates in this data structure
 
 # Replace the nested for loops below with your improvements
-for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+# for name_1 in names_1:
+#     for name_2 in names_2:
+#         if name_1 == name_2:
+#             duplicates.append(name_1)
+
+def fast_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    differ= arr[0]
+    sm = []
+    big= []
+
+    for i in range(1, len(arr)):
+        if arr[i] <= differ:
+            sm.append(arr[i])
+        else:
+            big.append(arr[i])
+    return fast_sort(sm) + [differ] + fast_sort(big)
+
+names_2 = fast_sort(names_2)
+
+def search(arr, target):
+    low = 0
+    high = len(arr)-1
+
+    while low < high:
+        mid = (low + high)//2
+        if arr[mid] == target:
+            return target
+        elif target < arr[mid]:
+            high = mid
+        else:
+            low = mid +1
+
+for name in names_1:
+    if name == search(names_2, name):
+        duplicates.append(name)
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
-print (f"runtime: {end_time - start_time} seconds")
+print (f"runtime: {end_time - start_time} seconds")  # got 5.4 seconds with original code  # got .066 seconds with new code 
+
 
 # ---------- Stretch Goal -----------
 # Python has built-in tools that allow for a very efficient approach to this problem
