@@ -13,14 +13,14 @@ class RingBuffer:
         if self.storage.length == 0:
             self.storage.add_to_head(item)
             self.current = self.storage.head
-        elif self.storage.length <self.capacity:
+        elif self.storage.length < self.capacity:
             self.storage.add_to_tail(item)
             self.current = self.current.next
             return
         if self.storage.length >= self.capacity:
             if self.current == self.storage.tail:
                 self.current = self.storage.head
-                self.current = item
+                self.current.value = item
             else:
                 self.current.next.value = item
                 self.current = self.current.next
